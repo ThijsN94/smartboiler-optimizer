@@ -1,0 +1,13 @@
+{
+  "domain": "smartboiler_optimizer",
+  "name": "SmartBoiler Optimizer",
+  "codeowners": [
+    "@thijsn94"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/thijsn94/smartboiler-optimizer",
+  "issue_tracker": "https://github.com/thijsn94/smartboiler-optimizer/issues",
+  "iot_class": "calculated",
+  "integration_type": "service",
+  "version": "0.1.19"
+}

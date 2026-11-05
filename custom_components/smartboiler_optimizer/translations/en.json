@@ -1,0 +1,188 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up SmartBoiler Optimizer",
+        "description": "Choose the sensors and settings. You can change everything later via Settings > Devices & services > SmartBoiler Optimizer > Configure. On first setup all modes are shown; the list is only filtered for the chosen boiler when you reopen the settings.",
+        "sections": {
+          "bronnen": {
+            "name": "Sources",
+            "data": {
+              "price_entity": "Dynamic price (hourly or quarter-hourly)",
+              "solar_entity": "Solar forecast",
+              "weather_entity": "Weather",
+              "outdoor_temp_entity": "Outdoor temperature sensor"
+            },
+            "data_description": {
+              "price_entity": "Works with Zonneplan (quarter-hourly prices) and with sensors that have a forecast attribute with datetime and value in €/kWh (hourly prices). Hourly prices are automatically split into quarter hours."
+            }
+          },
+          "boiler": {
+            "name": "Boiler",
+            "data": {
+              "boiler_entity": "Boiler (water_heater)",
+              "boiler_top_temp_entity": "Boiler temperature top",
+              "boiler_bottom_temp_entity": "Boiler temperature bottom",
+              "boiler_status_entity": "Boiler status",
+              "boiler_energy_entity": "Boiler energy (kWh)",
+              "boiler_target_temp": "Boiler target temperature (°C)",
+              "boiler_capacity_liters": "Boiler capacity (litres)",
+              "boiler_mode_on": "Mode when on",
+              "boiler_mode_off": "Mode when off",
+              "boiler_switch_entity": "Switch (only without a water_heater)",
+              "boiler_heating_states": "Statuses in which the boiler heats"
+            },
+            "data_description": {
+              "boiler_mode_on": "Only shows the modes the chosen boiler reports. If the boiler does not know the modes, or is unreachable, all modes are shown. After choosing another boiler you see the right list once you save and reopen the settings.",
+              "boiler_mode_off": "Only shows the modes the chosen boiler reports. If the boiler does not know the modes, or is unreachable, all modes are shown. After choosing another boiler you see the right list once you save and reopen the settings.",
+              "boiler_switch_entity": "Only needed if there is no water_heater. The integration turns this switch on at the start moment (on = heating) and off at the end (off = not heating). With a water_heater this field is not used.",
+              "boiler_heating_states": "Comma-separated status text(s) of the boiler status sensor in which the boiler heats, for example ProducingHeat, RequestingHeat. If empty, ProducingHeat and RequestingHeat apply."
+            }
+          },
+          "planning": {
+            "name": "Planning",
+            "data": {
+              "boiler_deadline_hour": "Boiler ready by (hour)",
+              "boiler_power_w": "Power while the boiler heats (W)",
+              "base_load_w": "Household base load (W)",
+              "boiler_control": "Turn the boiler on automatically at the calculated moment"
+            }
+          },
+          "backup": {
+            "name": "Backup heating",
+            "data": {
+              "backup_switch": "Backup switch",
+              "backup_temp_threshold": "Temperature threshold (°C)",
+              "backup_mode": "Direction of the backup switch"
+            },
+            "data_description": {
+              "backup_mode": "On > Off: above the threshold on, below the threshold off, and off at the end of the run. Off > On: exactly the opposite, so above the threshold off, below the threshold on, and on at the end. The end of the run only switches if the integration itself changed the switch during that run."
+            }
+          },
+          "leren": {
+            "name": "Learning and COP",
+            "data": {
+              "use_measured_cop": "Use measured COP instead of the COP table"
+            }
+          }
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "SmartBoiler Optimizer is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "SmartBoiler Optimizer",
+        "menu_options": {
+          "settings": "Settings",
+          "runs": "Maintenance: clear heat-up runs"
+        }
+      },
+      "settings": {
+        "data": {
+          "use_price": "Use dynamic price",
+          "use_weather": "Use weather (COP)",
+          "use_solar": "Use solar surplus"
+        },
+        "data_description": {
+          "use_price": "Off: the price is not counted; the start moment is determined by solar and/or COP.",
+          "use_weather": "Off: the COP is fixed at 2.5 instead of being calculated from the weather. The heat-up rate keeps using the weather.",
+          "use_solar": "Off: no solar surplus is counted; the start moment is determined by price and/or COP."
+        },
+        "title": "Settings",
+        "description": "Change the sensors and settings. Leave a field empty to not use it. Enter the COP table as YAML: one line per point, for example [0, 2.0]. The boiler only accepts the modes it knows itself. On first setup all modes are shown; the list is only filtered for the chosen boiler when you reopen the settings.",
+        "sections": {
+          "bronnen": {
+            "name": "Sources",
+            "data": {
+              "price_entity": "Dynamic price (hourly or quarter-hourly)",
+              "solar_entity": "Solar forecast",
+              "weather_entity": "Weather",
+              "outdoor_temp_entity": "Outdoor temperature sensor"
+            },
+            "data_description": {
+              "price_entity": "Works with Zonneplan (quarter-hourly prices) and with sensors that have a forecast attribute with datetime and value in €/kWh (hourly prices). Hourly prices are automatically split into quarter hours."
+            }
+          },
+          "boiler": {
+            "name": "Boiler",
+            "data": {
+              "boiler_entity": "Boiler (water_heater)",
+              "boiler_top_temp_entity": "Boiler temperature top",
+              "boiler_bottom_temp_entity": "Boiler temperature bottom",
+              "boiler_status_entity": "Boiler status",
+              "boiler_energy_entity": "Boiler energy (kWh)",
+              "boiler_target_temp": "Boiler target temperature (°C)",
+              "boiler_capacity_liters": "Boiler capacity (litres)",
+              "boiler_mode_on": "Mode when on",
+              "boiler_mode_off": "Mode when off",
+              "boiler_switch_entity": "Switch (only without a water_heater)",
+              "boiler_heating_states": "Statuses in which the boiler heats"
+            },
+            "data_description": {
+              "boiler_mode_on": "Only shows the modes the chosen boiler reports. If the boiler does not know the modes, or is unreachable, all modes are shown. After choosing another boiler you see the right list once you save and reopen the settings.",
+              "boiler_mode_off": "Only shows the modes the chosen boiler reports. If the boiler does not know the modes, or is unreachable, all modes are shown. After choosing another boiler you see the right list once you save and reopen the settings.",
+              "boiler_switch_entity": "Only needed if there is no water_heater. The integration turns this switch on at the start moment (on = heating) and off at the end (off = not heating). With a water_heater this field is not used.",
+              "boiler_heating_states": "Comma-separated status text(s) of the boiler status sensor in which the boiler heats, for example ProducingHeat, RequestingHeat. If empty, ProducingHeat and RequestingHeat apply."
+            }
+          },
+          "planning": {
+            "name": "Planning",
+            "data": {
+              "boiler_deadline_hour": "Boiler ready by (hour)",
+              "boiler_power_w": "Power while the boiler heats (W)",
+              "base_load_w": "Household base load (W)",
+              "boiler_control": "Turn the boiler on automatically at the calculated moment"
+            }
+          },
+          "backup": {
+            "name": "Backup heating",
+            "data": {
+              "backup_switch": "Backup switch",
+              "backup_temp_threshold": "Temperature threshold (°C)",
+              "backup_mode": "Direction of the backup switch"
+            },
+            "data_description": {
+              "backup_mode": "On > Off: above the threshold on, below the threshold off, and off at the end of the run. Off > On: exactly the opposite, so above the threshold off, below the threshold on, and on at the end. The end of the run only switches if the integration itself changed the switch during that run."
+            }
+          },
+          "leren": {
+            "name": "Learning and COP",
+            "data": {
+              "use_measured_cop": "Use measured COP instead of the COP table"
+            }
+          },
+          "cop_tabel": {
+            "name": "COP table",
+            "data": {
+              "cop_yaml": "COP table (YAML)"
+            },
+            "data_description": {
+              "cop_yaml": "One point per line: the outdoor temperature in °C and the COP at that temperature, for example [5, 2.35]. Between two points the integration interpolates linearly. Example: at 6 °C you are between 5 °C (COP 2.35) and 7.5 °C (COP 2.60), so the COP becomes 2.45. Outside the range of the table the COP stays equal to the nearest point: below the lowest temperature the lowest COP, above the highest the highest. The table is only used when 'Use measured COP' is off or there is no measured COP yet. At least two points; each temperature only once. The table is sorted when you save."
+            }
+          }
+        }
+      },
+      "runs": {
+        "title": "Clear heat-up runs",
+        "description": "You are about to clear all saved heat-up runs (currently {runs}). The learned heat-up rate per temperature band is kept. This cannot be undone.",
+        "data": {
+          "confirm_reset_runs": "Yes, I want to clear all heat-up runs"
+        }
+      }
+    },
+    "abort": {
+      "runs_cleared": "The heat-up runs have been cleared. The learned heat-up rate is kept.",
+      "runs_kept": "Nothing was cleared; the heat-up runs are kept.",
+      "not_loaded": "The integration is not loaded. Try again later."
+    },
+    "error": {
+      "too_few_points": "Enter at least two rows; otherwise there is nothing to interpolate.",
+      "duplicate_temp": "The same temperature appears more than once. Each temperature may only appear once.",
+      "yaml_invalid": "The YAML is not valid. Use one line per point in the form [temperature, COP], inside a list that starts with a dash."
+    }
+  }
+}

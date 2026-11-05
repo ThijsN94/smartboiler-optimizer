@@ -1,0 +1,188 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "SmartBoiler Optimizer instellen",
+        "description": "Kies de sensoren en instellingen. Alles kun je later wijzigen via Instellingen > Integraties > SmartBoiler Optimizer > Configureren. Bij de eerste installatie staan alle modi erin; de lijst wordt pas gefilterd op de gekozen boiler als je de instellingen opnieuw opent.",
+        "sections": {
+          "bronnen": {
+            "name": "Bronnen",
+            "data": {
+              "price_entity": "Dynamische prijs (uur- of kwartierprijzen)",
+              "solar_entity": "Zonnestroom forecast",
+              "weather_entity": "Weer",
+              "outdoor_temp_entity": "Buitentemperatuur sensor"
+            },
+            "data_description": {
+              "price_entity": "Werkt met Zonneplan (kwartierprijzen) en met sensoren met een forecast-attribuut met datetime en value in €/kWh (uurprijzen). Uurprijzen worden automatisch in kwartieren uitgeschreven."
+            }
+          },
+          "boiler": {
+            "name": "Boiler",
+            "data": {
+              "boiler_entity": "Boiler (water_heater)",
+              "boiler_top_temp_entity": "Boilertemperatuur boven",
+              "boiler_bottom_temp_entity": "Boilertemperatuur onder",
+              "boiler_status_entity": "Boilerstatus",
+              "boiler_energy_entity": "Energie boiler (kWh)",
+              "boiler_target_temp": "Boiler doeltemperatuur (°C)",
+              "boiler_capacity_liters": "Boiler inhoud (liter)",
+              "boiler_mode_on": "Modus bij aan",
+              "boiler_mode_off": "Modus bij uit",
+              "boiler_switch_entity": "Schakelaar (alleen zonder water_heater)",
+              "boiler_heating_states": "Statussen waarin de boiler verwarmt"
+            },
+            "data_description": {
+              "boiler_mode_on": "Toont alleen de modi die de gekozen boiler zelf meldt. Kent de boiler de modi niet, of is hij niet bereikbaar, dan staan alle modi erin. Na het kiezen van een andere boiler zie je de juiste lijst zodra je opslaat en de instellingen opnieuw opent.",
+              "boiler_mode_off": "Toont alleen de modi die de gekozen boiler zelf meldt. Kent de boiler de modi niet, of is hij niet bereikbaar, dan staan alle modi erin. Na het kiezen van een andere boiler zie je de juiste lijst zodra je opslaat en de instellingen opnieuw opent.",
+              "boiler_switch_entity": "Alleen nodig als er geen water_heater is. De integratie zet deze schakelaar aan bij het startmoment (aan = verwarmen) en uit aan het eind (uit = niet verwarmen). Met een water_heater wordt dit veld niet gebruikt.",
+              "boiler_heating_states": "Komma-gescheiden statustekst(en) van de boilerstatus-sensor waarin de boiler verwarmt, bijvoorbeeld ProducingHeat, RequestingHeat. Staat er niets in, dan gelden ProducingHeat en RequestingHeat."
+            }
+          },
+          "planning": {
+            "name": "Planning",
+            "data": {
+              "boiler_deadline_hour": "Boiler klaar om (uur)",
+              "boiler_power_w": "Vermogen tijdens boiler opwarmen (W)",
+              "base_load_w": "Basisverbruik huis (W)",
+              "boiler_control": "Boiler automatisch inschakelen op het berekende moment"
+            }
+          },
+          "backup": {
+            "name": "Backup bijverwarming",
+            "data": {
+              "backup_switch": "Backup-schakelaar",
+              "backup_temp_threshold": "Temperatuur drempel (°C)",
+              "backup_mode": "Richting van de backup-schakelaar"
+            },
+            "data_description": {
+              "backup_mode": "Aan > Uit: boven de drempel aan, onder de drempel uit, en aan het eind van de run uit. Uit > Aan: precies andersom, dus boven de drempel uit, onder de drempel aan, en aan het eind aan. Het eind van de run schakelt alleen als de integratie tijdens die run zelf de schakelaar heeft gewijzigd."
+            }
+          },
+          "leren": {
+            "name": "Leren en COP",
+            "data": {
+              "use_measured_cop": "Gemeten COP gebruiken in plaats van de COP-tabel"
+            }
+          }
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "SmartBoiler Optimizer is al ingesteld."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "SmartBoiler Optimizer",
+        "menu_options": {
+          "settings": "Instellingen",
+          "runs": "Onderhoud: opwarmruns wissen"
+        }
+      },
+      "settings": {
+        "data": {
+          "use_price": "Dynamische prijs gebruiken",
+          "use_weather": "Weer (COP) gebruiken",
+          "use_solar": "Zonoverschot gebruiken"
+        },
+        "data_description": {
+          "use_price": "Uit: de prijs telt niet mee; het startmoment wordt bepaald door zon en/of COP.",
+          "use_weather": "Uit: de COP wordt vast op 2,5 gezet in plaats van uit het weer berekend. Het opwarmtempo blijft het weer gebruiken.",
+          "use_solar": "Uit: er wordt geen zonoverschot meegerekend; het startmoment wordt bepaald door prijs en/of COP."
+        },
+        "title": "Instellingen",
+        "description": "Wijzig de sensoren en instellingen. Laat een veld leeg om het niet te gebruiken. De COP-tabel vul je in als YAML: één regel per punt, bijvoorbeeld [0, 2.0]. De boiler accepteert alleen de modi die hij zelf kent. Bij de eerste installatie staan alle modi erin; de lijst wordt pas gefilterd op de gekozen boiler als je de instellingen opnieuw opent.",
+        "sections": {
+          "bronnen": {
+            "name": "Bronnen",
+            "data": {
+              "price_entity": "Dynamische prijs (uur- of kwartierprijzen)",
+              "solar_entity": "Zonnestroom forecast",
+              "weather_entity": "Weer",
+              "outdoor_temp_entity": "Buitentemperatuur sensor"
+            },
+            "data_description": {
+              "price_entity": "Werkt met Zonneplan (kwartierprijzen) en met sensoren met een forecast-attribuut met datetime en value in €/kWh (uurprijzen). Uurprijzen worden automatisch in kwartieren uitgeschreven."
+            }
+          },
+          "boiler": {
+            "name": "Boiler",
+            "data": {
+              "boiler_entity": "Boiler (water_heater)",
+              "boiler_top_temp_entity": "Boilertemperatuur boven",
+              "boiler_bottom_temp_entity": "Boilertemperatuur onder",
+              "boiler_status_entity": "Boilerstatus",
+              "boiler_energy_entity": "Energie boiler (kWh)",
+              "boiler_target_temp": "Boiler doeltemperatuur (°C)",
+              "boiler_capacity_liters": "Boiler inhoud (liter)",
+              "boiler_mode_on": "Modus bij aan",
+              "boiler_mode_off": "Modus bij uit",
+              "boiler_switch_entity": "Schakelaar (alleen zonder water_heater)",
+              "boiler_heating_states": "Statussen waarin de boiler verwarmt"
+            },
+            "data_description": {
+              "boiler_mode_on": "Toont alleen de modi die de gekozen boiler zelf meldt. Kent de boiler de modi niet, of is hij niet bereikbaar, dan staan alle modi erin. Na het kiezen van een andere boiler zie je de juiste lijst zodra je opslaat en de instellingen opnieuw opent.",
+              "boiler_mode_off": "Toont alleen de modi die de gekozen boiler zelf meldt. Kent de boiler de modi niet, of is hij niet bereikbaar, dan staan alle modi erin. Na het kiezen van een andere boiler zie je de juiste lijst zodra je opslaat en de instellingen opnieuw opent.",
+              "boiler_switch_entity": "Alleen nodig als er geen water_heater is. De integratie zet deze schakelaar aan bij het startmoment (aan = verwarmen) en uit aan het eind (uit = niet verwarmen). Met een water_heater wordt dit veld niet gebruikt.",
+              "boiler_heating_states": "Komma-gescheiden statustekst(en) van de boilerstatus-sensor waarin de boiler verwarmt, bijvoorbeeld ProducingHeat, RequestingHeat. Staat er niets in, dan gelden ProducingHeat en RequestingHeat."
+            }
+          },
+          "planning": {
+            "name": "Planning",
+            "data": {
+              "boiler_deadline_hour": "Boiler klaar om (uur)",
+              "boiler_power_w": "Vermogen tijdens boiler opwarmen (W)",
+              "base_load_w": "Basisverbruik huis (W)",
+              "boiler_control": "Boiler automatisch inschakelen op het berekende moment"
+            }
+          },
+          "backup": {
+            "name": "Backup bijverwarming",
+            "data": {
+              "backup_switch": "Backup-schakelaar",
+              "backup_temp_threshold": "Temperatuur drempel (°C)",
+              "backup_mode": "Richting van de backup-schakelaar"
+            },
+            "data_description": {
+              "backup_mode": "Aan > Uit: boven de drempel aan, onder de drempel uit, en aan het eind van de run uit. Uit > Aan: precies andersom, dus boven de drempel uit, onder de drempel aan, en aan het eind aan. Het eind van de run schakelt alleen als de integratie tijdens die run zelf de schakelaar heeft gewijzigd."
+            }
+          },
+          "leren": {
+            "name": "Leren en COP",
+            "data": {
+              "use_measured_cop": "Gemeten COP gebruiken in plaats van de COP-tabel"
+            }
+          },
+          "cop_tabel": {
+            "name": "COP Tabel",
+            "data": {
+              "cop_yaml": "COP-tabel (YAML)"
+            },
+            "data_description": {
+              "cop_yaml": "Per regel één punt: de buitentemperatuur in °C en de COP die daarbij hoort, bijvoorbeeld [5, 2.35]. Tussen twee punten rekent de integratie rechtlijnig door. Voorbeeld: bij 6 °C ligt je tussen 5 °C (COP 2,35) en 7,5 °C (COP 2,60), dus de COP wordt 2,45. Buiten het bereik van de tabel blijft de COP gelijk aan het dichtstbijzijnde punt: onder de laagste temperatuur de laagste COP, boven de hoogste de hoogste. De tabel wordt alleen gebruikt als 'Gemeten COP gebruiken' uit staat of er nog geen gemeten COP is. Minimaal twee punten; elke temperatuur maar één keer. Bij opslaan wordt de tabel gesorteerd."
+            }
+          }
+        }
+      },
+      "runs": {
+        "title": "Opwarmruns wissen",
+        "description": "Je staat op het punt alle opgeslagen opwarmruns te wissen (nu {runs}). De geleerde opwarmsnelheid per temperatuurband blijft staan. Dit kan niet ongedaan worden gemaakt.",
+        "data": {
+          "confirm_reset_runs": "Ja, ik wil alle opwarmruns wissen"
+        }
+      }
+    },
+    "abort": {
+      "runs_cleared": "De opwarmruns zijn gewist. De geleerde opwarmsnelheid blijft staan.",
+      "runs_kept": "Er is niets gewist; de opwarmruns zijn bewaard.",
+      "not_loaded": "De integratie is niet geladen. Probeer het later opnieuw."
+    },
+    "error": {
+      "too_few_points": "Vul minimaal twee rijen in, anders is er niets te interpoleren.",
+      "duplicate_temp": "Dezelfde temperatuur komt meer dan één keer voor. Elke temperatuur mag maar één keer voorkomen.",
+      "yaml_invalid": "De YAML is niet geldig. Gebruik één regel per punt in de vorm [temperatuur, COP], binnen een lijst die met een streepje begint."
+    }
+  }
+}
