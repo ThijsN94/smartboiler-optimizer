@@ -1,5 +1,7 @@
 # SmartBoiler Optimizer
 
+[![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=thijsn94&repository=smartboiler-optimizer&category=integration)
+
 Home Assistant-integratie die bepaalt **wanneer je warmwaterboiler het goedkoopst opgewarmd kan worden** voor een vaste deadline. Die keuze houdt rekening met de dynamische stroomprijs, de COP van je warmtepomp (uit het weer of gemeten), de zonneproductie en de buitentemperatuur.
 
 > **English:** see the [English section](#english) below.
