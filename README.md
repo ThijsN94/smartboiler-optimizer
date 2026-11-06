@@ -4,6 +4,8 @@
 
 Home Assistant-integratie die bepaalt **wanneer je warmwaterboiler het goedkoopst opgewarmd kan worden** voor een vaste deadline. Die keuze houdt rekening met de dynamische stroomprijs, de COP van je warmtepomp (uit het weer of gemeten), de zonneproductie en de buitentemperatuur.
 
+> **Let op:** deze integratie is bedoeld voor een **warmtepompboiler** (een warmwaterboiler die door een warmtepomp wordt verwarmd). De berekening gebruikt de COP van die warmtepomp; met een gewone elektrische boiler klopt de berekening niet.
+
 > **English:** see the [English section](#english) below.
 
 ---
@@ -155,6 +157,8 @@ MIT. Zie [LICENSE](LICENSE).
 # English
 
 **SmartBoiler Optimizer** is a Home Assistant integration that determines **when your hot-water boiler can be heated most cheaply** before a fixed deadline. It takes the dynamic electricity price, the COP of your heat pump (from the weather or measured), solar production and the outdoor temperature into account.
+
+> **Note:** this integration is intended for a **heat-pump water heater** (a hot-water boiler heated by a heat pump). The calculation uses the COP of that heat pump; it does not fit a plain electric boiler.
 
 ## Contents
 - [What does it do?](#what-does-it-do-en)
